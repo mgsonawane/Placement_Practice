@@ -1,84 +1,69 @@
 #include<stdio.h>
 #include<stdlib.h>
-
-struct node
+struct q
 {
 int data;
-struct node *next;
+struct q *next;
 };
-struct node *peek(struct node *head)
+struct q *front=NULL,*rear=NULL,*temp=NULL;
+struct q *peek()
 {
-if (head==NULL)
+if (front!=NULL)
+	printf("Front %d\n",front->data);
+else
+	printf("!!!!!Empty queue!!!!!\n");
+
+}
+
+struct q dequ()
 {
+if (front==NULL)
 	printf("Queue is empty\n");
-	return 0;
-}
-else {
-int a=head->data;
-printf("Current node is %d \n",a);
-return head; }
-}
-struct node *delete(struct node *head)
+else
 {
-if (head==NULL)
-{
-	printf("Queue is empty\n");
-	return 0;
-}
-else 
-{
- 	int i,a=head->data;
-	 head=head->next;
-
-	printf("%d  Node deleted\n",a);
-	return head;
-}
+temp=front;
+front=front->next;
+free(temp);}
 }
 
-
+struct q *enqueue(int x)
+{
+temp=(struct q *)malloc(sizeof(struct q));
+temp->data=x;
+temp->next=NULL;
+if (front==NULL)
+{	front=temp;
+	rear=front;}
+else
+{
+	rear->next=temp;
+	rear=rear->next;
+}
+}
 int main()
 {
-        int k,ch;
-struct node *newnode,*temp,*head=NULL,*tr;
+int ch,x;
 while(1)
 {
-	printf("1)enQueue\n");
-	printf("2)dequeue\n");
-	printf("3)peek\n");
-	printf("4)Exit\n\n");
-	printf("Enter Your Choice :: \n");
+	printf("1)Enqueue\t");
+	printf("2)dequeue\t");
+	printf("3)peek\t");
+	printf("4)exit\t");
+	printf("\nEnter Your Choice :: \n");
 	scanf("%d",&ch);
-
- switch(ch)
- {
-
-	case 1: {       int data;
-			printf("Enter number\n");
-			scanf("%d",&data);
-		 	newnode=(struct node*)malloc(sizeof(struct node));
-		         newnode->data=data;
-		         newnode->next=NULL;
-			 if(head==NULL)
-			{
-			        head=newnode;
-			        temp=head;
-			}
-			else
-			        temp->next=newnode;
-			        temp=newnode;
-		}
-		break;
-	case 2: delete(head);
-		break;
-	
-	case 3:peek(head);
-		break;
-	case 4:
-		exit(0);
+switch(ch)
+{
+case 1: printf("Enter Element");
+	scanf("%d",&x);
+	enqueue(x);
+	break;
+case 2:
+	dequ();
+	break;
+case 3: peek();
+	break;
+case 4:exit(0);
 
 }
 }
-
-return 0;
 }
-
